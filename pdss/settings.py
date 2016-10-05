@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
 # Django settings for pdss project.
+import os.path
+
 APP='pdss'
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -73,6 +76,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.abspath('./seantis-questionnaire/questionnaire/static/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -101,6 +105,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'questionnaire.request_cache.RequestCacheMiddleware',
 )
 
 ROOT_URLCONF = '%s.urls' %APP
@@ -112,6 +118,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.abspath('./seantis-questionnaire/questionnaire/templates'),
+    os.path.abspath('./templates'),
 )
 
 INSTALLED_APPS = (
@@ -127,6 +135,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'main',
     'south',
+
+    'transmeta',
+    'questionnaire',
+    'questionnaire.page',
+    'django.contrib.markup',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -157,3 +170,10 @@ LOGGING = {
         },
     }
 }
+
+LANGUAGES = (
+    ('tr', 'Turkce'),
+    ('en', 'English'),
+    ('de', 'Deutsch'),
+    
+)
